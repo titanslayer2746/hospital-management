@@ -19,9 +19,9 @@ app.use(bodyParser.json());
 
 connectDB()
 
-app.use('/patients', patientsRouter);
-app.use('/doctors', doctorsRouter);
-app.use('/appointments', appoinmentsRouter)
+app.use('/api/patients', patientsRouter);
+app.use('/api/doctors', doctorsRouter);
+app.use('/api/appointments', appoinmentsRouter)
 
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
