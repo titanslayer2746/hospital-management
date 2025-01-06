@@ -23,7 +23,6 @@ const addPatient = (req, res) => {
 }
 
 const updatePatientInfo = (req, res) => {
-    console.log('hihhhhiuhiihihiuhiuh');
 
     Patient.findById(req.params.id)
         .then(patient => {
