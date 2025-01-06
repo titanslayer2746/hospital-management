@@ -6,16 +6,11 @@ import
 import axios from 'axios';
 import AppointmentCard
     from '../components/AppointmentCard.jsx';
-import '../css/Appointment.css';
+import '../css/Appointments.css';
 
 const Appointments = () => {
     const [appointments, setAppointments] = useState([]);
-    const [newAppointment, setNewAppointment] =
-        useState(
-            {
-                patientName: '',
-                doctorName: '', date: ''
-            });
+    const [newAppointment, setNewAppointment] = useState({patientName: '',doctorName: '', date: ''});
     const [selectedAppointment, setSelectedAppointment] = useState(null);
     const [isEditMode, setIsEditMode] = useState(false);
 
