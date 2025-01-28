@@ -18,7 +18,7 @@ const App = () => {
         <Router>
             <div className="container">
                 <h1 style={{ color: "green" }}>
-                    Hospital Managment App
+                    MediTrack
                 </h1>
                 <nav>
                     <ul>
