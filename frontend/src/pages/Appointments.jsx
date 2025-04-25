@@ -8,6 +8,7 @@ import AppointmentCard
     from '../components/AppointmentCard.jsx';
 import '../css/Appointments.css';
 
+const BASE_URL = import.meta.env.VITE_BASE_URL;
 const Appointments = () => {
     const [appointments, setAppointments] = useState([]);
     const [newAppointment, setNewAppointment] = useState({patientName: '',doctorName: '', date: ''});
@@ -18,7 +19,7 @@ const Appointments = () => {
     useEffect(() => {
         axios
             .get(
-'http://localhost:5000/api/appointments')
+`${BASE_URL}/api/appointments`)
             .then(
                 response =>
                     setAppointments(response.data))
@@ -34,7 +35,7 @@ const Appointments = () => {
 
             axios
                 .post(
-'http://localhost:5000/api/appointments/add', newAppointment)
+`${BASE_URL}/api/appointments/add`, newAppointment)
                 .then(response => {
                     console.log(response.data);
                     setAppointments(
@@ -56,7 +57,7 @@ const Appointments = () => {
             e.preventDefault();
             axios
                 .post(
-`http://localhost:5000/api/appointments/update/${id}`, selectedAppointment)
+`${BASE_URL}/api/appointments/update/${id}`, selectedAppointment)
                 .then(response => {
                     console.log(response.data);
                     const updateApp = {
@@ -82,7 +83,7 @@ const Appointments = () => {
         (id) => {
             axios
                 .delete(
-`http://localhost:5000/api/appointments/delete/${id}`)
+`${BASE_URL}/api/appointments/delete/${id}`)
                 .then(response => {
                     console.log(response.data);
                     setAppointments(

@@ -8,6 +8,8 @@ import axios from 'axios';
 import DoctorCard from '../components/DoctorCard';
 import '../css/Doctors.css'
 
+const BASE_URL = import.meta.env.VITE_BASE_URL;
+
 const Doctors = () => {
     const [doctors, setDoctors] = useState([]);
     const [newDoctor, setNewDoctor] =useState({name: '',specialty: ''});
@@ -17,7 +19,7 @@ const Doctors = () => {
     useEffect(
         () => {
             axios
-                .get('http://localhost:5000/api/doctors')
+                .get(`${BASE_URL}/api/doctors`)
                 .then(
                     response =>
                         setDoctors(response.data))
@@ -32,7 +34,7 @@ const Doctors = () => {
             e.preventDefault();
             axios
                 .post(
-'http://localhost:5000/api/doctors/add', newDoctor)
+`${BASE_URL}/api/doctors/add`, newDoctor)
                 .then(
                     response => {
                         console.log("doc", response.data);
@@ -58,7 +60,7 @@ const Doctors = () => {
             e.preventDefault();
             axios
                 .post(
-`http://localhost:5000/api/doctors/update/${id}`, selectedDoctor)
+`${BASE_URL}/api/doctors/update/${id}`, selectedDoctor)
                 .then(response => {
                     const updateDoc = {
                         ...selectedDoctor,
@@ -82,7 +84,7 @@ const Doctors = () => {
 
     const handleDeleteDoctor = (id) => {
         axios.delete(
-`http://localhost:5000/api/doctors/delete/${id}`)
+`${BASE_URL}/api/doctors/delete/${id}`)
             .then(response => {
                 console.log(response.data);
                 setDoctors(

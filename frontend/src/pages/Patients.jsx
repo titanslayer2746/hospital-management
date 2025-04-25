@@ -5,6 +5,7 @@ import axios from 'axios';
 import '../css/Patients.css';
 import PatientCard from '../components/PatientCard';
 
+const BASE_URL = import.meta.env.VITE_BASE_URL;
 const Patients = () => {
     const [patients, setPatients] = useState([]);
     const [newPatient, setNewPatient] =
@@ -15,7 +16,7 @@ const Patients = () => {
 
     useEffect(
         () => {
-            axios.get('http://localhost:5000/api/patients')
+            axios.get(`${BASE_URL}/api/patients`)
                 .then(response => setPatients(response.data))
                 .catch(error =>
                     console.error('Error fetching patients:', error));
@@ -27,7 +28,7 @@ const Patients = () => {
             e.preventDefault();
 
             axios.post(
-'http://localhost:5000/api/patients/add', newPatient)
+`${BASE_URL}/api/patients/add`, newPatient)
                 .then(response => {
                     console.log(response.data);
                     setPatients([...patients, response.data]);
@@ -42,7 +43,7 @@ const Patients = () => {
             e.preventDefault();
 
             axios.post(
-`http://localhost:5000/api/patients/update/${id}`, selectedPatient)
+`${BASE_URL}/api/patients/update/${id}`, selectedPatient)
                 .then(response => {
                     const updatePat = {
                         ...selectedPatient,
@@ -68,7 +69,7 @@ const Patients = () => {
     const handleDeletePatient =
         (id) => {
             axios.delete(
-`http://localhost:5000/api/patients/delete/${id}`)
+`${BASE_URL}/api/patients/delete/${id}`)
                 .then(response => {
                     console.log(response.data);
                     setSelectedPatient(null);
