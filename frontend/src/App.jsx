@@ -11,51 +11,50 @@ import Patients from './pages/Patients.jsx';
 import './App.css'
 
 const App = () => {
-    const isLinkActive =
-        (path) =>
-            window.location.pathname === path;
+    const isLinkActive = (path) => window.location.pathname === path;
+    
     return (
         <Router>
             <div className="container">
-                <h1 style={{ color: "green" }}>
-                    MediTrack
-                </h1>
+                <header>
+                    <h1>
+                        <span role="img" aria-label="hospital">🏥</span> MediTrack
+                    </h1>
+                    <p className="subtitle">Your Healthcare Management Solution</p>
+                </header>
+
                 <nav>
                     <ul>
-                        <li className={
-                            isLinkActive('/appointments')
-                                ? 'active' : ''}>
+                        <li className={isLinkActive('/appointments') ? 'active' : ''}>
                             <Link to="/appointments">
-                                Appointments
+                                <span role="img" aria-label="calendar">📅</span> Appointments
                             </Link>
                         </li>
-                        <li className={
-                            isLinkActive('/doctors') ?
-                                'active' : ''}>
+                        <li className={isLinkActive('/doctors') ? 'active' : ''}>
                             <Link to="/doctors">
-                                Doctors
+                                <span role="img" aria-label="doctor">👨‍⚕️</span> Doctors
                             </Link>
                         </li>
-                        <li className={
-                            isLinkActive('/patients') ?
-                                'active' : ''}>
+                        <li className={isLinkActive('/patients') ? 'active' : ''}>
                             <Link to="/patients">
-                                Patients
+                                <span role="img" aria-label="patients">👥</span> Patients
                             </Link>
                         </li>
                     </ul>
                 </nav>
 
-                <Routes>
-                    <Route path="/appointments"
-                        element={<Appointments />} />
-                    <Route path="/"
-                        element={<Appointments />} />
-                    <Route path="/doctors"
-                        element={<Doctors />} />
-                    <Route path="/patients"
-                        element={<Patients />} />
-                </Routes>
+                <main>
+                    <Routes>
+                        <Route path="/appointments" element={<Appointments />} />
+                        <Route path="/" element={<Appointments />} />
+                        <Route path="/doctors" element={<Doctors />} />
+                        <Route path="/patients" element={<Patients />} />
+                    </Routes>
+                </main>
+
+                <footer>
+                    <p>© 2024 MediTrack. All rights reserved.</p>
+                </footer>
             </div>
         </Router>
     );

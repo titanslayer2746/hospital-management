@@ -1,44 +1,86 @@
- /* App.css  */
- .container {
-  max-width: 90vw;
+/* App.css  */
+.container {
+  max-width: 1200px;
   margin: 0 auto;
-  padding: 20px 150px;
-  background-color: #F5EEE6;
-
+  padding: 2rem;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
 }
 
+h1 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  text-align: center;
+  margin-bottom: 2rem;
+  color: #2c5282 !important;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+}
 
 nav {
-  background-color: #00a7aa;
-  padding: 10px;
-  border-radius: 10px;
+  background: white;
+  padding: 1rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  margin-bottom: 2rem;
 }
 
-ul {
+nav ul {
   list-style: none;
   padding: 0;
   margin: 0;
   display: flex;
+  justify-content: center;
+  gap: 2rem;
 }
 
-li {
-  margin-right: 20px;
+nav li {
+  position: relative;
 }
 
-a {
-
+nav a {
   text-decoration: none;
-  color: white;
-  font-weight: bold;
+  color: #4a5568;
+  font-weight: 500;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  transition: all 0.3s ease;
 }
 
-a:hover {
-  color: #ffd700;
+nav a:hover {
+  color: #2c5282;
+  background: #ebf8ff;
 }
 
-.active {
+nav li.active a {
+  color: #2c5282;
+  background: #ebf8ff;
+}
 
-  color: #ffd700;
+nav li.active::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background: #2c5282;
+  border-radius: 2px;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .container {
+    padding: 1rem;
+  }
+
+  nav ul {
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  h1 {
+    font-size: 2rem;
+  }
 }
 
 /* FLEX  */
@@ -55,4 +97,48 @@ a:hover {
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
+}
+
+/* Modern styling for MediTrack */
+header {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.subtitle {
+  color: #718096;
+  font-size: 1.1rem;
+  margin-top: -1.5rem;
+}
+
+main {
+  background: white;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  min-height: 60vh;
+}
+
+footer {
+  text-align: center;
+  margin-top: 2rem;
+  padding: 1rem;
+  color: #718096;
+  font-size: 0.9rem;
+}
+
+/* Add smooth transitions */
+* {
+  transition: all 0.3s ease;
+}
+
+/* Improve accessibility */
+a:focus {
+  outline: 2px solid #2c5282;
+  outline-offset: 2px;
+}
+
+/* Add hover effect to the main content area */
+main:hover {
+  box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
 }
