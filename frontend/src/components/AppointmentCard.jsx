@@ -31,14 +31,14 @@ const AppointmentCard =
                             .toLocaleDateString()
                     }
                 </p>
-                <div className='btn-container'>
+                <div className="button-group">
                     <button onClick={
                         () =>
                             onEdit(appointment)
                     }>
                         Edit
                     </button>
-                    <button onClick={
+                    <button className="delete" onClick={
                         () =>
                             onDelete(appointment._id)
                     }>
