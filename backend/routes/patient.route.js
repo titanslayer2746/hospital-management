@@ -1,17 +1,22 @@
+// Import required dependencies
 import express from 'express';
 import { addPatient, deletePatientInfo, getPatients, updatePatientInfo } from '../controllers/patient.controller.js';
 const router = express.Router();
 
-// Get all patients
+// Route: GET /api/patients
+// Description: Retrieves all patients from the database
 router.route('/').get(getPatients);
 
-// Add new patient
+// Route: POST /api/patients/add
+// Description: Creates a new patient record
 router.route('/add').post(addPatient);
 
-// Update patient data
+// Route: POST /api/patients/update/:id
+// Description: Updates an existing patient's information by their ID
 router.route('/update/:id').post(updatePatientInfo);
 
-// Delete patient by ID
+// Route: DELETE /api/patients/delete/:id
+// Description: Removes a patient record from the database by their ID
 router.route('/delete/:id').delete(deletePatientInfo);
 
 export default router;

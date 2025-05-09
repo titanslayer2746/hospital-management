@@ -4,20 +4,26 @@ import jwt from 'jsonwebtoken';
 import {User} from '../models/User.js'; 
 import { auth } from '../middleware/auth.js';
 
+// JWT secret key for token generation and verification
 const JWT_SECRET = process.env.JWT_SECRET || 'your-secret-key';
 
-// Register new user
+/**
+ * Route: POST /api/auth/register
+ * Description: Register a new user in the system
+ * Request Body: { username, password, email, role }
+ * Response: User object and JWT token
+ */
 router.post('/register', async (req, res) => {
     try {
         const { username, password, email, role } = req.body;
 
-        // Check if user already exists
+        // Check if user already exists with the same email or username
         const existingUser = await User.findOne({ $or: [{ email }, { username }] });
         if (existingUser) {
             return res.status(400).json({ error: 'User already exists' });
         }
 
-        // Create new user
+        // Create new user instance
         const user = new User({
             username,
             password,
@@ -27,9 +33,10 @@ router.post('/register', async (req, res) => {
 
         await user.save();
 
-        // Generate token
+        // Generate JWT token for the new user
         const token = jwt.sign({ userId: user._id }, JWT_SECRET);
 
+        // Return user data and token
         res.status(201).json({
             user: {
                 id: user._id,
@@ -44,26 +51,32 @@ router.post('/register', async (req, res) => {
     }
 });
 
-// Login user
+/**
+ * Route: POST /api/auth/login
+ * Description: Authenticate user and generate JWT token
+ * Request Body: { username, password }
+ * Response: User object and JWT token
+ */
 router.post('/login', async (req, res) => {
     try {
         const { username, password } = req.body;
 
-        // Find user
+        // Find user by username
         const user = await User.findOne({ username });
         if (!user) {
             return res.status(401).json({ error: 'Invalid credentials' });
         }
 
-        // Check password
+        // Verify password
         const isMatch = await user.comparePassword(password);
         if (!isMatch) {
             return res.status(401).json({ error: 'Invalid credentials' });
         }
 
-        // Generate token
+        // Generate JWT token
         const token = jwt.sign({ userId: user._id }, JWT_SECRET);
 
+        // Return user data and token
         res.json({
             user: {
                 id: user._id,
@@ -78,7 +91,12 @@ router.post('/login', async (req, res) => {
     }
 });
 
-// Get current user
+/**
+ * Route: GET /api/auth/me
+ * Description: Get current authenticated user's information
+ * Middleware: Requires authentication token
+ * Response: User object
+ */
 router.get('/me', auth, async (req, res) => {
     res.json({
         user: {

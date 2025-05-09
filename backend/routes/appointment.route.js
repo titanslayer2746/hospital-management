@@ -1,3 +1,4 @@
+// Import required dependencies
 import express from 'express';
 import { addAppointment,
          deleteAppointment,
@@ -6,16 +7,20 @@ import { addAppointment,
 
 const router = express.Router();
 
-// Get all appointments
+// Route: GET /api/appointments
+// Description: Retrieves all appointments from the database
 router.route('/').get(getAppointments);
 
-// Add new appointment
+// Route: POST /api/appointments/add
+// Description: Creates a new appointment record
 router.route('/add').post(addAppointment);
 
-// Update appointment data
+// Route: POST /api/appointments/update/:id
+// Description: Updates an existing appointment's information by its ID
 router.route('/update/:id').post(updateAppointment);
 
-// Delete appointment
+// Route: DELETE /api/appointments/delete/:id
+// Description: Removes an appointment record from the database by its ID
 router.route('/delete/:id').delete(deleteAppointment);
 
 export default router;

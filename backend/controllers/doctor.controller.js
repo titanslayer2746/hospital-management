@@ -1,6 +1,11 @@
 import {Doctor} from "../models/doctor.model.js"
 
-
+/**
+ * Retrieves all doctors from the database
+ * @param {Object} req - Express request object
+ * @param {Object} res - Express response object
+ * @returns {Array} List of all doctors
+ */
 const getDoctors = (req, res) => {
     Doctor.find()
         .then(doctors =>
@@ -10,6 +15,12 @@ const getDoctors = (req, res) => {
                 .json('Error: ' + err));
 }
 
+/**
+ * Creates a new doctor record
+ * @param {Object} req - Express request object containing doctor data (name, specialty)
+ * @param {Object} res - Express response object
+ * @returns {Object} The newly created doctor record
+ */
 const addDoctor = (req, res) => {
     const { name, specialty } = req.body;
 
@@ -17,7 +28,6 @@ const addDoctor = (req, res) => {
         new Doctor({ name, specialty });
 
     newDoctor.save()
-        // Return the savedDoctor object
         .then(savedDoctor =>
             res.json(savedDoctor))
         .catch(
@@ -26,6 +36,12 @@ const addDoctor = (req, res) => {
                     .json('Error: ' + err));
 }
 
+/**
+ * Updates an existing doctor's information
+ * @param {Object} req - Express request object containing doctor ID and updated data
+ * @param {Object} res - Express response object
+ * @returns {String} Success message or error
+ */
 const updateDoctorInfo = (req, res) => {
     Doctor.findById(req.params.id)
         .then(doctor => {
@@ -34,6 +50,7 @@ const updateDoctorInfo = (req, res) => {
                     .json('Doctor not found');
             }
 
+            // Update doctor information
             doctor.name = req.body.name;
             doctor.specialty = req.body.specialty;
 
@@ -46,6 +63,12 @@ const updateDoctorInfo = (req, res) => {
             .json('Error: ' + err));
 }
 
+/**
+ * Deletes a doctor record from the database
+ * @param {Object} req - Express request object containing doctor ID
+ * @param {Object} res - Express response object
+ * @returns {String} Success message or error
+ */
 const deleteDoctorInfo = (req, res) => {
     Doctor.findByIdAndDelete(req.params.id)
         .then(doctor => {

@@ -1,5 +1,11 @@
 import {Patient} from "../models/patient.model.js"
 
+/**
+ * Retrieves all patients from the database
+ * @param {Object} req - Express request object
+ * @param {Object} res - Express response object
+ * @returns {Array} List of all patients
+ */
 const getPatients = (req, res) => {
     Patient.find()
         .then(patients =>
@@ -9,6 +15,12 @@ const getPatients = (req, res) => {
                 .json('Error: ' + err));
 }
 
+/**
+ * Creates a new patient record
+ * @param {Object} req - Express request object containing patient data (name, age, gender)
+ * @param {Object} res - Express response object
+ * @returns {Object} The newly created patient record
+ */
 const addPatient = (req, res) => {
     const { name, age, gender } = req.body;
 
@@ -22,8 +34,13 @@ const addPatient = (req, res) => {
             .json('Error: ' + err));
 }
 
+/**
+ * Updates an existing patient's information
+ * @param {Object} req - Express request object containing patient ID and updated data
+ * @param {Object} res - Express response object
+ * @returns {String} Success message or error
+ */
 const updatePatientInfo = (req, res) => {
-
     Patient.findById(req.params.id)
         .then(patient => {
             if (!patient) {
@@ -31,6 +48,7 @@ const updatePatientInfo = (req, res) => {
                     .json('Patient not found');
             }
 
+            // Update patient information
             patient.name = req.body.name;
             patient.age = req.body.age;
             patient.gender = req.body.gender;
@@ -44,6 +62,12 @@ const updatePatientInfo = (req, res) => {
             .json('Error: ' + err));
 }
 
+/**
+ * Deletes a patient record from the database
+ * @param {Object} req - Express request object containing patient ID
+ * @param {Object} res - Express response object
+ * @returns {String} Success message or error
+ */
 const deletePatientInfo = (req, res) => {
     Patient.findByIdAndDelete(req.params.id)
         .then(patient => {
@@ -57,4 +81,4 @@ const deletePatientInfo = (req, res) => {
             .json('Error: ' + err));
 }
 
-export {deletePatientInfo, addPatient, updatePatientInfo,getPatients}
+export {deletePatientInfo, addPatient, updatePatientInfo, getPatients}

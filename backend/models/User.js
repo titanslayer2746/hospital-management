@@ -1,6 +1,10 @@
 import mongoose from 'mongoose';
 import bcrypt from 'bcryptjs';
 
+/**
+ * User Schema Definition
+ * Defines the structure and validation rules for user documents
+ */
 const userSchema = new mongoose.Schema({
     username: {
         type: String,
@@ -14,7 +18,7 @@ const userSchema = new mongoose.Schema({
     },
     role: {
         type: String,
-        enum: ['manager', 'staff'],
+        enum: ['manager', 'staff'], // Only allows 'manager' or 'staff' roles
         required: true
     },
     email: {
@@ -29,16 +33,26 @@ const userSchema = new mongoose.Schema({
     }
 });
 
-// Hash password before saving
+/**
+ * Pre-save Middleware
+ * Hashes the password before saving to the database
+ * Only hashes if the password field has been modified
+ */
 userSchema.pre('save', async function(next) {
     if (!this.isModified('password')) return next();
     this.password = await bcrypt.hash(this.password, 10);
     next();
 });
 
-// Method to compare password
+/**
+ * Password Comparison Method
+ * Compares a candidate password with the stored hashed password
+ * @param {string} candidatePassword - The password to compare
+ * @returns {Promise<boolean>} True if passwords match, false otherwise
+ */
 userSchema.methods.comparePassword = async function(candidatePassword) {
     return await bcrypt.compare(candidatePassword, this.password);
 };
 
+// Create and export the User model
 export const User = mongoose.model('User', userSchema); 
